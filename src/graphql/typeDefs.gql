@@ -1,0 +1,10 @@
+type Query {
+    allPosts: [Post]
+}
+
+type Post {
+    title: String!
+    body: String!
+}
+
+

@@ -1,23 +1,23 @@
 import logo from './logo.svg';
 import './App.css';
+import { GET_POSTS, CREATE_POST, GET_POST } from './graphql/query'
+import { useQuery } from '@apollo/react-hooks';
+import Posts from './posts';
 
 function App() {
+
+  const { loading, error, data } = useQuery(GET_POSTS, {
+    variables: { limit: 5 },
+    //fetchPolicy: 'network-first'
+  })
+  loading && <div>loading...</div>
+  error && <div> error!</div>
+
+  /* data.posts.map(post => <Post key={post.id} post={post} />) */
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Posts />
     </div>
   );
 }
