@@ -1,6 +1,8 @@
 type Query {
-    allPosts: [Post]
+    allPosts: [Post],
+    findPostByID: Post
 }
+
 
 type Post {
     title: String!

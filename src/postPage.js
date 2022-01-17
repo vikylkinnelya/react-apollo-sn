@@ -5,10 +5,10 @@ import { GET_POST } from "./graphql/query";
 export default PostPage = ({ id }) => {
 
     const { loading, error, data } = useSubscription(GET_POST, {
-        variables: { id }
+        variables: { id },
         //shouldReSubscribe: true //default: false //позволяет переподписаться несли пропсы изменятся
         //onSubscriptionData: data => console.log('new data:', data) //позвол вызвать функцию в любой момент когда хук получит новые данные
-        //fetchPolicy: 'network-only' //default: 'cache-first')
+        fetchPolicy: 'network-only' //default: 'cache-first')
     })
 
     loading && <div>loading...</div>

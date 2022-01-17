@@ -2,19 +2,20 @@ import { useQuery } from "@apollo/react-hooks"
 import { GET_POSTS } from "./graphql/query"
 import Post from './post'
 
-const Posts = () => {
+const Posts = ({data, refetch}) => {
 
-    const { loading, data, refetch } = useQuery(GET_POSTS)
-    
-    loading && <div>loading...</div>
-
-
-    return data.posts.map(post => (
-        <Post
-            key={post.id}
-            post={post}
-            refetch={refetch} />
-    ))
+    return (
+        <div className="posts-feed">
+            {
+                data != null  && data.allPosts.data.map(post => (
+                    <Post
+                        key={post._id}
+                        post={post}
+                        refetch={refetch} />
+                ))
+            }
+        </div>
+    )
 }
 
 export default Posts

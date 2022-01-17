@@ -3,7 +3,16 @@ import { useMutation } from "@apollo/react-hooks"
 
 const Post = ({ post, refetch }) => {
 
+    let { title, body, _ts, _id } = post
+
+
+    const date = new Date(_ts / 1000).toLocaleString('en', {
+        day: 'numeric',
+        month: 'short'
+    })
+
     const [deletePost] = useMutation(DELETE_POST, {
+        variables: { "id": _id },
         onCompleted: () => refetch()
     })
 
@@ -14,10 +23,11 @@ const Post = ({ post, refetch }) => {
 
     return (
 
-        <div>
-            <h1>{post.title}</h1>
-            <p>{post.button}</p>
-            <button onClick={() => onDeletePost(post.id)}>delete</button>
+        <div className="feed-post">
+            <h1>{title}</h1>
+            <p>{body}</p>
+            <p>Created at: {date}</p>
+            <button onClick={() => onDeletePost(_id)}>delete</button>
         </div>
 
     )

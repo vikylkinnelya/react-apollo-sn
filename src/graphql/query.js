@@ -1,7 +1,7 @@
-import { gql } from "apollo-boost";
+import { gql } from '@apollo/react-hooks';
 
 const GET_POSTS = gql`
-    query GET_POSTS($limit:Int) {
+    query allPosts($limit:Int) {
         allPosts(_size: $limit) {
             data {
                 _id
@@ -14,7 +14,7 @@ const GET_POSTS = gql`
 `
 
 const GET_POST = gql`
-    query GET_POST($id: ID!) {
+    query getPost($id: ID!) {
         findPostByID(id: $id) {
             title
             body
@@ -23,7 +23,7 @@ const GET_POST = gql`
 `
 
 const CREATE_POST = gql`
-    mutation CREATE_POST($title: String!, $body: String!){
+    mutation createPostItem($title: String!, $body: String!){
         createPost(data:{ title: $title, body: $body }) {
   	        title 
   	        body
@@ -33,7 +33,7 @@ const CREATE_POST = gql`
 
 
 const DELETE_POST = gql`
-    mutation DELETE_POST($id: ID!) {
+    mutation deletePostItem($id: ID!) {
             deletePost(id: $id) {
                 _id
             }
