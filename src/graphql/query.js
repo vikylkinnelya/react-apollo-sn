@@ -1,14 +1,15 @@
 import { gql } from '@apollo/react-hooks';
 
 const GET_POSTS = gql`
-    query allPosts($limit:Int) {
-        allPosts(_size: $limit) {
+    query allPosts($limit:Int, $cursor: String) {
+        allPosts(_size: $limit, _cursor: $cursor) {
             data {
                 _id
                 _ts
                 title
                 body
-    }
+            }, 
+            after
   }
 }
 `
