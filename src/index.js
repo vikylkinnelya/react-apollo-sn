@@ -3,17 +3,31 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client'
+import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink } from '@apollo/client'
 import { Auth0Provider } from '@auth0/auth0-react'
+import { setContext } from '@apollo/client/link/context';
 
-const readOnly = 'fnAEdsE-CUAAwP0pmzWKMCp-ME_E5-uvA8829VmZ'
+
+const httpLink = createHttpLink({
+  uri: "https://graphql.eu.fauna.com/graphql",
+  credentials: 'same-origin'
+});
+
+const authLink = setContext((_, { headers }) => {
+  // get the authentication token from local storage if it exists
+  const token = localStorage.getItem('token');
+  // return the headers to the context so httpLink can read them
+  return {
+    headers: {
+      ...headers,
+      authorization: token ? `Bearer ${token}` : "Bearer fnAEdsE-CUAAwP0pmzWKMCp-ME_E5-uvA8829VmZ",
+    }
+  }
+});
 
 const client = new ApolloClient({
-  uri: "https://graphql.eu.fauna.com/graphql",
-  cache: new InMemoryCache(),
-  headers: {
-    Authorization: `Bearer fnAEdsE-CUAAwP0pmzWKMCp-ME_E5-uvA8829VmZ`
-  },
+  link: authLink.concat(httpLink),
+  cache: new InMemoryCache()
 })
 
 

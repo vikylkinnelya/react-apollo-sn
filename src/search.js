@@ -2,7 +2,10 @@ import { useLazyQuery } from '@apollo/react-hooks'
 import React, { useEffect, useState } from 'react'
 import {GET_POST} from './graphql/query'
 
-export default Search = () => {
+/* 
+
+
+const Search = () => {
 
     const [query, setQuery] = useState('')
     const [searchPosts, { data }] = useLazyQuery(GET_POST, {
@@ -18,4 +21,6 @@ export default Search = () => {
     called && loading && <div>loading...</div> //called если вызывалась функция 
 
     return results.map(res => <SearchResult key={res.id} result={res} />)
-}
+} 
+
+*/

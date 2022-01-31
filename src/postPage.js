@@ -2,7 +2,8 @@ import { useSubscription } from "@apollo/react-hooks";
 import { GET_POST } from "./graphql/query";
 
 // where id comes from route params -> /post/:id
-export default PostPage = ({ id }) => {
+/* 
+const PostPage = ({ id }) => {
 
     const { loading, error, data } = useSubscription(GET_POST, {
         variables: { id },
@@ -23,3 +24,6 @@ export default PostPage = ({ id }) => {
         </div>
     )
 }
+
+
+*/

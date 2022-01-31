@@ -2,7 +2,7 @@ import { useQuery } from "@apollo/react-hooks"
 import { useState } from "react"
 import { GET_POST, GET_POSTS, UPDATE_POST } from "./graphql/query"
 
-// route: /edit/:postId
+//edit/:postId
 export default EditPost = ({ id }) => {
     const { loading, data } = useQuery(GET_POST,
         { variables: { id } })

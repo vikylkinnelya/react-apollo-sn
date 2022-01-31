@@ -7,7 +7,6 @@ import NewPost from './newPost';
 import Login from './login';
 import Logout from './logout'
 
-
 function App() {
 
   const [limit, setLimit] = useState(5)

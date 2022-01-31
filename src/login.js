@@ -5,21 +5,21 @@ import { useEffect, useCallback } from 'react';
 
 const Login = () => {
 
-
     const { loginWithRedirect, user, isAuthenticated, getAccessTokenSilently } = useAuth0()
 
-    /* const getToken = async () => {
+    const getToken = async () => {
         try {
             const token = await getAccessTokenSilently();
+            localStorage.setItem('token', token)
             console.log( token)
         } catch (e) {
             console.error(e);
         }
-    }; */
+    };
 
     const createUserHook = useCallback(() => {
         user && createUser({ variables: { userName: user.nickname, email: user.email, picture: user.picture, id: user.sub } })
-        //getToken()
+        getToken()
     }, [user])
 
     useEffect(() => {
@@ -27,8 +27,8 @@ const Login = () => {
     }, [createUserHook])
 
     const [createUser] = useMutation(CREATE_USER, {
-        //onCompleted: data => console.log('Data from mutation:', data),
-        onError: error => console.log('error with setting user:', error)
+        //onCompleted: data => console.log(data),
+        onError: error => console.log('error with user:', error)
     })
 
     const onLogIn = () => {
