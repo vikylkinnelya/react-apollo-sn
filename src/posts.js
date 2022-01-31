@@ -7,17 +7,17 @@ const Posts = ({ data, refetch, fetchMore, setLimit }) => {
     const onLoadMore = () => {
         fetchMore({
             variables: {
-                cursor: data.allPosts.after
+                cursor: data.posts.after
             },
             updateQuery: (prevResult, { fetchMoreResult }) => {
 
                 if (!fetchMoreResult) return prevResult
 
-                const prevRes = prevResult.allPosts.data
-                const nextRes = fetchMoreResult.allPosts.data
+                const prevRes = prevResult.posts.data
+                const nextRes = fetchMoreResult.posts.data
                 console.log(prevRes)
 
-                fetchMoreResult.allPosts.data = [...prevRes, ...nextRes]
+                fetchMoreResult.posts.data = [...prevRes, ...nextRes]
 
                 return { ...fetchMoreResult }
 
@@ -30,8 +30,8 @@ const Posts = ({ data, refetch, fetchMore, setLimit }) => {
         <>
             <h1>Posts:</h1>
             <label htmlFor="limits">Limit for post feed </label>
-            <select defaultValue={10} name="limits" id="limits" onChange={ev => setLimit(+ev.target.value)}>
-                <option ></option>
+            <select defaultValue={5} name="limits" id="limits" onChange={ev => setLimit(+ev.target.value)}>
+                <option value='null'></option>
                 <option value="5" >5</option>
                 <option value="10" >10</option>
                 <option value="20" >20</option>
@@ -43,7 +43,7 @@ const Posts = ({ data, refetch, fetchMore, setLimit }) => {
 
 
                 {
-                    data != null && data.allPosts.data.map(post => (
+                    data != null && data.posts.data.map(post => (
                         <Post
                             key={post._id}
                             post={post}

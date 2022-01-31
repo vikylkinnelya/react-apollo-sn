@@ -1,12 +1,64 @@
 type Query {
-    allPosts: [Post],
+    posts: [Post],
+    likes: [Like],
+    comments: [Comment],
+    users: [User]
     findPostByID: Post
 }
-
 
 type Post {
     title: String!
     body: String!
+    author: User! @relation (name: "user_posts")
+    likes: [Like]
+    comments: [Comment]
 }
+
+type Comment {
+    path: Post!
+    body: String!
+    author: User! @relation (name: "user_comments")
+}
+
+type Like {
+    author: User! @relation (name: "user_likes")
+    path: Post!
+}
+
+type User { 
+    email: String!
+    userName: String!
+    id: String!
+    posts: [Post] @relation (name: "user_posts")
+    likes: [Like] @relation (name: "user_likes")
+    coments: [Comment] @relation (name: "user_comments")
+    picture: String!
+}
+
+input UserInput {
+    userName: String!
+    email: String!
+    password: String
+    picture: String!
+    id: String!
+}
+
+input LoginUserInput {
+    email: String!
+    password: String!
+}
+
+input LogoutInput {
+    allTokens: Boolean
+}
+
+type AuthPayload {
+    token: String!
+    user: User!
+}
+
+
+
+
 
 

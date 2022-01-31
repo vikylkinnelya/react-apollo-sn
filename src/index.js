@@ -3,23 +3,33 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import ApolloClient from 'apollo-boost' //только если будут запросы и мутации
-import { ApolloProvider } from "@apollo/react-hooks";
-import { InMemoryCache } from 'apollo-cache-inmemory'
+import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client'
+import { Auth0Provider } from '@auth0/auth0-react'
+
+const readOnly = 'fnAEdsE-CUAAwP0pmzWKMCp-ME_E5-uvA8829VmZ'
 
 const client = new ApolloClient({
-  uri: 'https://graphql.eu.fauna.com/graphql',
+  uri: "https://graphql.eu.fauna.com/graphql",
   cache: new InMemoryCache(),
   headers: {
-    Authorization: "Bearer fnAEdHt4H4AAyNM9gyJZi-vNcVCta04LUHEVkAxt"
+    Authorization: `Bearer fnAEdsE-CUAAwP0pmzWKMCp-ME_E5-uvA8829VmZ`
   },
 })
+
 
 
 ReactDOM.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
-      <App />
+      <Auth0Provider
+        useRefreshTokens={true}
+        domain={'https://dev-ep8grcpp.us.auth0.com'}
+        clientId={'ydIpzMjZYBT7kGxCLxgcGyYofefopV47'}
+        audience={'https://db.fauna.com/db/ytzg1c13nyrcq'}
+        redirectUri={window.location.origin}
+      >
+        <App />
+      </Auth0Provider>
     </ApolloProvider>
   </React.StrictMode>,
   document.getElementById('root')

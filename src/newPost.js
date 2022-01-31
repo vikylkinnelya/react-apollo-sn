@@ -1,6 +1,8 @@
 import { useMutation } from "@apollo/react-hooks";
+import { useLazyQuery } from '@apollo/client';
 import { useState } from "react";
-import { CREATE_POST, GET_POSTS } from "./graphql/query";
+import { CREATE_POST, GET_POSTS, GET_USER } from "./graphql/query";
+import { useAuth0 } from '@auth0/auth0-react'
 
 const NewPost = () => {
 
@@ -15,7 +17,7 @@ const NewPost = () => {
                 query: GET_POSTS,
                 variables: { limit: 99 }
             }
-        ]
+        ],
     })
 
     const onCreatePost = (ev) => {
@@ -23,8 +25,9 @@ const NewPost = () => {
         createPost({ variables: { title, body } })
         document.getElementById('title-input').value = ''
         document.getElementById('body-input').value = ''
-
     }
+
+
 
     return (
         <div id="new-post">
